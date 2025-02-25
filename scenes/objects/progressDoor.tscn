@@ -1,0 +1,81 @@
+[gd_scene load_steps=19 format=3 uid="uid://b7tl7csspuhow"]
+
+[ext_resource type="Script" path="res://scripts/door.gd" id="1_12tkl"]
+[ext_resource type="PhysicsMaterial" uid="uid://bbgudd3t1i643" path="res://assets/physicsMaterials/RoughMaterial.tres" id="1_cpw8c"]
+[ext_resource type="AudioStream" uid="uid://btm72hyam2ksd" path="res://assets/sounds/collapse-47652.mp3" id="3_tv7h0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kk26f"]
+size = Vector3(4, 5, 0.2)
+
+[sub_resource type="Gradient" id="Gradient_g082w"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_28oe5"]
+seed = 2
+frequency = 0.034
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ea3is"]
+seamless = true
+color_ramp = SubResource("Gradient_g082w")
+noise = SubResource("FastNoiseLite_28oe5")
+
+[sub_resource type="Gradient" id="Gradient_x7eyi"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ljypa"]
+seed = 115
+frequency = 0.0052
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5bke6"]
+seamless = true
+color_ramp = SubResource("Gradient_x7eyi")
+noise = SubResource("FastNoiseLite_ljypa")
+
+[sub_resource type="Gradient" id="Gradient_6uwgs"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_gi1g3"]
+noise_type = 2
+seed = 6
+frequency = 0.0093
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_08uwq"]
+seamless = true
+color_ramp = SubResource("Gradient_6uwgs")
+noise = SubResource("FastNoiseLite_gi1g3")
+
+[sub_resource type="Gradient" id="Gradient_ihjsx"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_i6b0r"]
+noise_type = 0
+seed = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ld3ho"]
+seamless = true
+color_ramp = SubResource("Gradient_ihjsx")
+noise = SubResource("FastNoiseLite_i6b0r")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_al8na"]
+albedo_color = Color(0.435192, 0.435192, 0.435192, 1)
+albedo_texture = SubResource("NoiseTexture2D_ea3is")
+metallic = 1.0
+metallic_texture = SubResource("NoiseTexture2D_5bke6")
+roughness_texture = SubResource("NoiseTexture2D_ld3ho")
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_08uwq")
+
+[sub_resource type="BoxMesh" id="BoxMesh_6xcw0"]
+material = SubResource("StandardMaterial3D_al8na")
+size = Vector3(4, 5, 0.2)
+
+[node name="ProgressDoor" type="AnimatableBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+physics_material_override = ExtResource("1_cpw8c")
+script = ExtResource("1_12tkl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_kk26f")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_6xcw0")
+
+[node name="open" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_tv7h0")
+pitch_scale = 0.6

@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://csa0tdi5g002b"]
+
+[ext_resource type="Script" path="res://scripts/player_spawner.gd" id="1_mj678"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lkv4n"]
+albedo_color = Color(0, 1, 1, 1)
+emission_enabled = true
+emission = Color(0, 0.764706, 1, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_uystg"]
+material = SubResource("StandardMaterial3D_lkv4n")
+top_radius = 0.6
+bottom_radius = 0.6
+height = 0.1
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_6ftv1"]
+
+[node name="PlayerSpawner" type="Node3D"]
+script = ExtResource("1_mj678")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_uystg")
+
+[node name="setCheck" type="Area3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/setCheck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_6ftv1")
+
+[connection signal="body_entered" from="MeshInstance3D/setCheck" to="." method="_on_set_check_body_entered"]

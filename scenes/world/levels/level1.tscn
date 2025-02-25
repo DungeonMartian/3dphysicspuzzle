@@ -1,0 +1,54 @@
+[gd_scene load_steps=10 format=3 uid="uid://vfk4lpevnaf2"]
+
+[ext_resource type="Script" path="res://scripts/level_1.gd" id="1_bxcmh"]
+[ext_resource type="PackedScene" uid="uid://csa0tdi5g002b" path="res://scenes/objects/playerSpawner.tscn" id="2_3xxj4"]
+[ext_resource type="Environment" uid="uid://bo1x26fupxfpb" path="res://assets/Environment.tres" id="2_f4dx7"]
+[ext_resource type="PackedScene" uid="uid://6ockgikhff6x" path="res://scenes/objects/endGoal.tscn" id="3_pvfiy"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_wxnvt"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_cun1w"]
+
+[sub_resource type="Compositor" id="Compositor_h2kv8"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_x3umo"]
+size = Vector3(15, 1, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5jvak"]
+size = Vector3(15, 1, 10)
+
+[node name="Level1" type="Node3D"]
+script = ExtResource("1_bxcmh")
+
+[node name="worldBoundary" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -26, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="worldBoundary"]
+shape = SubResource("WorldBoundaryShape3D_wxnvt")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("2_f4dx7")
+camera_attributes = SubResource("CameraAttributesPractical_cun1w")
+compositor = SubResource("Compositor_h2kv8")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, 0.612372, -0.353553, 0, 0.5, 0.866025, 0.707107, -0.612372, 0.353553, 0, 3, 0)
+light_color = Color(1, 0.984314, 1, 1)
+shadow_enabled = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, -2, -5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_x3umo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_5jvak")
+
+[node name="PlayerSpawner" parent="." instance=ExtResource("2_3xxj4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
+
+[node name="EndGoal" parent="." instance=ExtResource("3_pvfiy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.50702, -10)
+
+[connection signal="body_entered" from="worldBoundary" to="." method="_on_world_boundary_body_entered"]

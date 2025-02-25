@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://cvfgcflen3b1m"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_mc87o"]
+[ext_resource type="Material" uid="uid://rssema841d64" path="res://assets/materials/playerMaterial.tres" id="2_e80ie"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_m3g6x"]
+material = ExtResource("2_e80ie")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7ruuq"]
+
+[node name="Player" type="RigidBody3D"]
+mass = 3.0
+continuous_cd = true
+contact_monitor = true
+max_contacts_reported = 2
+script = ExtResource("1_mc87o")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_m3g6x")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_7ruuq")

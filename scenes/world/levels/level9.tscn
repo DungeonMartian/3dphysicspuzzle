@@ -1,0 +1,152 @@
+[gd_scene load_steps=15 format=3 uid="uid://dfykdv4emcy3c"]
+
+[ext_resource type="Script" path="res://scripts/level_9.gd" id="1_cwyxp"]
+[ext_resource type="Environment" uid="uid://bo1x26fupxfpb" path="res://assets/Environment.tres" id="2_lb5df"]
+[ext_resource type="PackedScene" uid="uid://ctby8nkjnjb8w" path="res://scenes/objects/jumpPad.tscn" id="3_ofjy2"]
+[ext_resource type="PackedScene" uid="uid://csa0tdi5g002b" path="res://scenes/objects/playerSpawner.tscn" id="3_vbgav"]
+[ext_resource type="PackedScene" uid="uid://jf0atcedytks" path="res://scenes/objects/progressButton.tscn" id="5_0nis0"]
+[ext_resource type="PackedScene" uid="uid://b7tl7csspuhow" path="res://scenes/objects/progressDoor.tscn" id="6_rv4rf"]
+[ext_resource type="PackedScene" uid="uid://6ockgikhff6x" path="res://scenes/objects/endGoal.tscn" id="7_xpsru"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_mbv1p"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_3heuy"]
+
+[sub_resource type="Compositor" id="Compositor_ctghb"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_qsaq2"]
+size = Vector3(15, 1, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_38pg8"]
+size = Vector3(15, 1, 10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_w47ps"]
+size = Vector3(5, 1, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d0a7o"]
+size = Vector3(5, 1, 5)
+
+[node name="Level9" type="Node3D"]
+script = ExtResource("1_cwyxp")
+
+[node name="worldBoundary" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -26, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="worldBoundary"]
+shape = SubResource("WorldBoundaryShape3D_mbv1p")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("2_lb5df")
+camera_attributes = SubResource("CameraAttributesPractical_3heuy")
+compositor = SubResource("Compositor_ctghb")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, 0.612372, -0.353553, 0, 0.5, 0.866025, 0.707107, -0.612372, 0.353553, 0, 3, 0)
+light_color = Color(1, 0.984314, 1, 1)
+shadow_enabled = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -2, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_qsaq2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_38pg8")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -7.5, 3, 5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2"]
+mesh = SubResource("BoxMesh_w47ps")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+shape = SubResource("BoxShape3D_d0a7o")
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 7.5, 3, 5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D3"]
+mesh = SubResource("BoxMesh_w47ps")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D3"]
+shape = SubResource("BoxShape3D_d0a7o")
+
+[node name="StaticBody3D4" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 7.5, 3, -5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D4"]
+mesh = SubResource("BoxMesh_w47ps")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D4"]
+shape = SubResource("BoxShape3D_d0a7o")
+
+[node name="StaticBody3D5" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -7.5, 3, -5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D5"]
+mesh = SubResource("BoxMesh_w47ps")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D5"]
+shape = SubResource("BoxShape3D_d0a7o")
+
+[node name="JumpPad2" parent="." instance=ExtResource("3_ofjy2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3, -1.45, -4.76837e-07)
+
+[node name="JumpPad" parent="." instance=ExtResource("3_ofjy2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.4, -1.45, 0)
+
+[node name="PlayerSpawner" parent="." instance=ExtResource("3_vbgav")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
+
+[node name="ProgressButton" parent="." node_paths=PackedStringArray("progressDoor") instance=ExtResource("5_0nis0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 3.48661, 4)
+progressDoor = NodePath("../ProgressDoor")
+
+[node name="ProgressButton2" parent="." node_paths=PackedStringArray("progressDoor") instance=ExtResource("5_0nis0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3.48661, 4)
+progressDoor = NodePath("../ProgressDoor")
+
+[node name="ProgressButton3" parent="." node_paths=PackedStringArray("progressDoor") instance=ExtResource("5_0nis0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3.48661, -4)
+progressDoor = NodePath("../ProgressDoor")
+
+[node name="ProgressButton4" parent="." node_paths=PackedStringArray("progressDoor") instance=ExtResource("5_0nis0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 3.48661, -4)
+progressDoor = NodePath("../ProgressDoor")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, -1, -4)
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0, 1, 6.72917, -4.45, 1)
+size = Vector3(14, 2, 3)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.866025, 0.353553, 0.353553, -0.5, 0.612372, 0.612372, 0, -0.707107, 0.707107, 7.70096, -3.85, 1)
+rotation_edit_mode = 2
+operation = 2
+size = Vector3(17, 1, 1)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.9443, -7.65276, 1)
+size = Vector3(14, 2, 3)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 2.98023e-08, 0, 2.98023e-08, 0.707107, 0.707107, 0, -0.707107, 0.707107, 20.4359, -6.64724, 1)
+rotation_edit_mode = 2
+operation = 2
+size = Vector3(17.1, 1, 1)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 34, -8, 0.999993)
+size = Vector3(17, 1, 4)
+
+[node name="ProgressDoor" parent="." instance=ExtResource("6_rv4rf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6, -38)
+
+[node name="EndGoal" parent="." instance=ExtResource("7_xpsru")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8.50702, -45)
+
+[connection signal="body_entered" from="worldBoundary" to="." method="_on_world_boundary_body_entered"]

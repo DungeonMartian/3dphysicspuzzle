@@ -1,0 +1,45 @@
+[gd_scene load_steps=9 format=3 uid="uid://77024rsp2hrp"]
+
+[ext_resource type="PhysicsMaterial" uid="uid://ca8ng04tnhnb3" path="res://assets/physicsMaterials/bouncyMaterial.tres" id="1_5i07b"]
+[ext_resource type="Script" path="res://scripts/push_object.gd" id="1_ggkpp"]
+[ext_resource type="Material" uid="uid://cmo1ftecjb6n6" path="res://assets/materials/pusherMaterial.tres" id="2_s7fil"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6y23e"]
+size = Vector3(4, 3, 3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_0w6gh"]
+material = ExtResource("2_s7fil")
+size = Vector3(4, 3, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qcifr"]
+size = Vector3(0.2, 3, 3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_xkjff"]
+material = ExtResource("2_s7fil")
+size = Vector3(0.2, 3, 3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_1h6f5"]
+material = ExtResource("2_s7fil")
+size = Vector3(4, 0.2, 0.2)
+
+[node name="PushObject" type="AnimatableBody3D"]
+physics_material_override = ExtResource("1_5i07b")
+script = ExtResource("1_ggkpp")
+
+[node name="bodyShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0, 0)
+shape = SubResource("BoxShape3D_6y23e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="bodyShape"]
+mesh = SubResource("BoxMesh_0w6gh")
+
+[node name="pushShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0, 0)
+shape = SubResource("BoxShape3D_qcifr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="pushShape"]
+mesh = SubResource("BoxMesh_xkjff")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="pushShape"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+mesh = SubResource("BoxMesh_1h6f5")

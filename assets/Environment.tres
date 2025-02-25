@@ -1,0 +1,31 @@
+[gd_resource type="Environment" load_steps=6 format=3 uid="uid://bo1x26fupxfpb"]
+
+[ext_resource type="FastNoiseLite" uid="uid://dcdy1kwwsfkia" path="res://assets/noise/skyNoise.tres" id="1_3w1b7"]
+
+[sub_resource type="Gradient" id="Gradient_18gs8"]
+colors = PackedColorArray(0, 0.823529, 1, 1, 1, 0.847059, 1, 1)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rvsak"]
+generate_mipmaps = false
+seamless = true
+color_ramp = SubResource("Gradient_18gs8")
+noise = ExtResource("1_3w1b7")
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_3m54f"]
+panorama = SubResource("NoiseTexture2D_rvsak")
+
+[sub_resource type="Sky" id="Sky_hqswt"]
+sky_material = SubResource("PanoramaSkyMaterial_3m54f")
+
+[resource]
+background_mode = 2
+sky = SubResource("Sky_hqswt")
+sky_rotation = Vector3(1.5708, 0, 0)
+ambient_light_energy = 9.47
+glow_intensity = 0.26
+glow_bloom = 0.08
+glow_hdr_threshold = 1.22
+glow_hdr_scale = 0.7
+fog_mode = 1
+fog_light_color = Color(1, 0.839216, 0.607843, 1)
+fog_density = 1.0

@@ -1,0 +1,76 @@
+[gd_scene load_steps=11 format=3 uid="uid://1btytp20n1hr"]
+
+[ext_resource type="Script" path="res://scripts/level_6.gd" id="1_mqitp"]
+[ext_resource type="Environment" uid="uid://bo1x26fupxfpb" path="res://assets/Environment.tres" id="2_k6vsj"]
+[ext_resource type="PackedScene" uid="uid://csa0tdi5g002b" path="res://scenes/objects/playerSpawner.tscn" id="3_ukhju"]
+[ext_resource type="PackedScene" uid="uid://77024rsp2hrp" path="res://scenes/objects/pushObject.tscn" id="4_ai8kp"]
+[ext_resource type="PackedScene" uid="uid://6ockgikhff6x" path="res://scenes/objects/endGoal.tscn" id="5_37fxf"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_4wecp"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_4hg37"]
+
+[sub_resource type="Compositor" id="Compositor_fgkh7"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_3kp0i"]
+size = Vector3(15, 1, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k42bu"]
+size = Vector3(15, 1, 4)
+
+[node name="Level6" type="Node3D"]
+script = ExtResource("1_mqitp")
+
+[node name="worldBoundary" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -26, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="worldBoundary"]
+shape = SubResource("WorldBoundaryShape3D_4wecp")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("2_k6vsj")
+camera_attributes = SubResource("CameraAttributesPractical_4hg37")
+compositor = SubResource("Compositor_fgkh7")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, 0.612372, -0.353553, 0, 0.5, 0.866025, 0.707107, -0.612372, 0.353553, 0, 3, 0)
+light_color = Color(1, 0.984314, 1, 1)
+shadow_enabled = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(-1, 0, -2.23517e-08, 0, 1, 0, 2.23517e-08, 0, -1, 6, -2, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_3kp0i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_k42bu")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+transform = Transform3D(2.13597e-08, 0, 1, 0, 1, 0, -1, 0, 2.13597e-08, 11.5, -2, 9)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2"]
+mesh = SubResource("BoxMesh_3kp0i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+shape = SubResource("BoxShape3D_k42bu")
+
+[node name="PlayerSpawner" parent="." instance=ExtResource("3_ukhju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
+
+[node name="PushObject" parent="." instance=ExtResource("4_ai8kp")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 8, 0, -1)
+
+[node name="PushObject3" parent="." instance=ExtResource("4_ai8kp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.4, 0, 3)
+
+[node name="PushObject4" parent="." instance=ExtResource("4_ai8kp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.4, 0, 10)
+
+[node name="PushObject2" parent="." instance=ExtResource("4_ai8kp")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 0, -1)
+
+[node name="EndGoal" parent="." instance=ExtResource("5_37fxf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -1.50702, 14.5)
+
+[connection signal="body_entered" from="worldBoundary" to="." method="_on_world_boundary_body_entered"]
