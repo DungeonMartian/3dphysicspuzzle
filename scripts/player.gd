@@ -3,7 +3,10 @@ extends RigidBody3D
 class_name Player
 static var ref : Player
 func _init() -> void:
+	if ref != null:
+		queue_free()
 	ref = self
+	
 
 var speed : float = 120
 var jumpSpeed : float = 800
